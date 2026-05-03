@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Poster Les Coding Scratch</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: #0d0d1a;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        font-family: "Nunito", sans-serif;
+        padding: 16px;
+      }
+
+      .poster {
+        width: 100%;
+        max-width: 600px;
+        background: linear-gradient(160deg, #1a0a3c 0%, #0a0520 60%, #0d0a2a 100%);
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+        box-shadow:
+          0 0 60px rgba(168, 85, 247, 0.3),
+          0 0 120px rgba(168, 85, 247, 0.1);
+      }
+
+      .poster::before {
+        content: "";
+        position: absolute;
+        top: -60px;
+        left: -60px;
+        width: 300px;
+        height: 260px;
+        background: radial-gradient(ellipse, rgba(168, 85, 247, 0.35) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .poster::after {
+        content: "";
+        position: absolute;
+        top: 80px;
+        right: -60px;
+        width: 280px;
+        height: 240px;
+        background: radial-gradient(ellipse, rgba(255, 107, 43, 0.3) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      .glow-bl {
+        position: absolute;
+        bottom: 120px;
+        left: -40px;
+        width: 220px;
+        height: 180px;
+        background: radial-gradient(ellipse, rgba(168, 85, 247, 0.25) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .glow-br {
+        position: absolute;
+        bottom: 100px;
+        right: -40px;
+        width: 220px;
+        height: 180px;
+        background: radial-gradient(ellipse, rgba(255, 107, 43, 0.2) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      .stars {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+      .star {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        opacity: 0.6;
+      }
+
+      .cube-svg {
+        position: absolute;
+        pointer-events: none;
+      }
+      .scratch-blocks {
+        position: absolute;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      /* ── TOP BADGE ── */
+      .top-badge {
+        display: flex;
+        justify-content: center;
+        padding-top: clamp(18px, 5vw, 28px);
+        position: relative;
+        z-index: 2;
+      }
+      .top-badge span {
+        border: 1.5px solid #ffd700;
+        border-radius: 20px;
+        padding: 5px 18px;
+        color: #ffd700;
+        font-size: clamp(9px, 2.5vw, 11px);
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      /* ── MASCOT ── */
+      .mascot-area {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+        position: relative;
+        z-index: 2;
+        height: clamp(110px, 26vw, 170px);
+      }
+      .mascot-area svg {
+        height: 100%;
+        width: auto;
+      }
+
+      /* ── TITLE ── */
+      .title-block {
+        text-align: center;
+        position: relative;
+        z-index: 2;
+        padding: 0 clamp(18px, 5vw, 40px);
+        margin-top: -4px;
+      }
+      .title-sub {
+        color: #00d4ff;
+        font-size: clamp(10px, 2.8vw, 13px);
+        font-weight: 800;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 2px;
+      }
+      .title-game {
+        font-family: "Fredoka One", cursive;
+        font-size: clamp(48px, 14vw, 72px);
+        line-height: 1;
+        background: linear-gradient(135deg, #ff6b2b, #ff9500, #ffd700);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 2px;
+      }
+      .title-dengan {
+        color: white;
+        font-size: clamp(10px, 2.8vw, 14px);
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .scratch-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #ff6b2b, #ff9500, #ffd700);
+        border-radius: 30px;
+        padding: clamp(7px, 2vw, 10px) clamp(22px, 6vw, 40px);
+        color: white;
+        font-family: "Fredoka One", cursive;
+        font-size: clamp(17px, 5vw, 26px);
+        letter-spacing: 2px;
+      }
+
+      /* ── AGE BADGE ── */
+      .age-badge {
+        display: flex;
+        justify-content: center;
+        margin-top: 12px;
+        position: relative;
+        z-index: 2;
+        padding: 0 16px;
+      }
+      .age-badge span {
+        background: rgba(26, 10, 60, 0.8);
+        border-radius: 20px;
+        padding: 5px clamp(12px, 4vw, 28px);
+        color: #ffd700;
+        font-size: clamp(12px, 3.5vw, 15px);
+        font-weight: 800;
+        text-align: center;
+      }
+
+      /* ── DIVIDERS ── */
+      .divider {
+        height: 1.5px;
+        background: linear-gradient(90deg, transparent, #ff6b2b, #ff9500, #ffd700, transparent);
+        margin: clamp(12px, 3vw, 18px) clamp(28px, 8vw, 60px);
+        opacity: 0.6;
+        position: relative;
+        z-index: 2;
+      }
+      .divider-soft {
+        height: 0.5px;
+        background: rgba(255, 255, 255, 0.15);
+        margin: clamp(10px, 2.5vw, 14px) clamp(28px, 8vw, 60px);
+        position: relative;
+        z-index: 2;
+      }
+
+      /* ── MODE ROW ── */
+      .mode-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: clamp(8px, 3vw, 16px);
+        padding: 0 clamp(28px, 7vw, 60px);
+        position: relative;
+        z-index: 2;
+      }
+      .mode-pill {
+        border-radius: 18px;
+        padding: clamp(6px, 1.5vw, 8px) clamp(10px, 3vw, 20px);
+        text-align: center;
+        flex: 1;
+      }
+      .mode-pill.online {
+        border: 1.5px solid #00d4ff;
+      }
+      .mode-pill.onsite {
+        border: 1.5px solid #ff8c42;
+      }
+      .mode-pill .mode-title {
+        font-size: clamp(10px, 2.8vw, 12px);
+        font-weight: 800;
+        letter-spacing: 1px;
+      }
+      .mode-pill.online .mode-title {
+        color: #00d4ff;
+      }
+      .mode-pill.onsite .mode-title {
+        color: #ff8c42;
+      }
+      .mode-pill .mode-desc {
+        font-size: clamp(8px, 2vw, 10px);
+        color: rgba(255, 255, 255, 0.6);
+        margin-top: 2px;
+      }
+      .mode-amp {
+        color: white;
+        font-size: clamp(16px, 4vw, 20px);
+        font-weight: 900;
+        flex-shrink: 0;
+      }
+
+      /* ── LEARN ── */
+      .learn-section {
+        padding: 0 clamp(22px, 6vw, 50px);
+        position: relative;
+        z-index: 2;
+      }
+      .learn-title {
+        text-align: center;
+        color: #ffd700;
+        font-size: clamp(9px, 2.5vw, 12px);
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .learn-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px 10px;
+      }
+      @media (max-width: 340px) {
+        .learn-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .learn-item {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        color: white;
+        font-size: clamp(10px, 2.8vw, 12px);
+        font-weight: 600;
+      }
+      .learn-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      /* ── PRICE CARD ── */
+      .price-card {
+        margin: 0 clamp(18px, 5vw, 40px);
+        background: linear-gradient(135deg, #7c3aed, #4c1d95);
+        border: 1.5px solid #a855f7;
+        border-radius: 18px;
+        padding: clamp(14px, 3.5vw, 20px) clamp(18px, 5vw, 30px);
+        text-align: center;
+        position: relative;
+        z-index: 2;
+        overflow: hidden;
+      }
+      .price-card::before {
+        content: "";
+        position: absolute;
+        top: -30px;
+        left: -30px;
+        width: 100px;
+        height: 100px;
+        background: rgba(168, 85, 247, 0.3);
+        border-radius: 50%;
+      }
+      .price-card::after {
+        content: "";
+        position: absolute;
+        bottom: -40px;
+        right: -40px;
+        width: 120px;
+        height: 120px;
+        background: rgba(124, 58, 237, 0.3);
+        border-radius: 50%;
+      }
+      .price-label {
+        color: #e9d5ff;
+        font-size: clamp(9px, 2.5vw, 11px);
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+        position: relative;
+        z-index: 1;
+      }
+      .price-normal {
+        color: #a78bfa;
+        font-size: clamp(12px, 3.5vw, 15px);
+        font-weight: 600;
+        text-decoration: line-through;
+        margin-bottom: 2px;
+        position: relative;
+        z-index: 1;
+      }
+      .price-special {
+        font-family: "Fredoka One", cursive;
+        font-size: clamp(36px, 10vw, 52px);
+        color: #ffd700;
+        line-height: 1.1;
+        position: relative;
+        z-index: 1;
+      }
+      .price-save {
+        display: inline-block;
+        background: #ff6b2b;
+        border-radius: 14px;
+        padding: 3px 16px;
+        color: white;
+        font-size: clamp(10px, 2.8vw, 12px);
+        font-weight: 800;
+        margin-top: 4px;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* ── CTA ── */
+      .cta-wrap {
+        padding: 0 clamp(28px, 8vw, 60px);
+        margin-top: clamp(12px, 3vw, 16px);
+        position: relative;
+        z-index: 2;
+      }
+      .cta-btn {
+        display: block;
+        width: 100%;
+        background: linear-gradient(90deg, #ff6b2b, #ff4500);
+        border: 2px solid rgba(255, 215, 0, 0.5);
+        border-radius: 30px;
+        padding: clamp(12px, 3vw, 16px);
+        text-align: center;
+        color: white;
+        font-family: "Fredoka One", cursive;
+        font-size: clamp(16px, 5vw, 22px);
+        letter-spacing: 2px;
+        text-decoration: none;
+        box-shadow: 0 4px 24px rgba(255, 107, 43, 0.4);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .cta-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 32px rgba(255, 107, 43, 0.6);
+      }
+      .cta-btn:active {
+        transform: translateY(0);
+      }
+
+      /* ── BOTTOM STRIP ── */
+      .bottom-strip {
+        background: rgba(15, 7, 38, 0.95);
+        border-top: 2px solid transparent;
+        border-image: linear-gradient(90deg, #ff6b2b, #ff9500, #ffd700) 1;
+        padding: clamp(14px, 4vw, 20px) clamp(18px, 5vw, 40px) clamp(18px, 5vw, 28px);
+        margin-top: clamp(14px, 3.5vw, 20px);
+        text-align: center;
+        position: relative;
+        z-index: 2;
+      }
+      .admin-title {
+        color: #ffd700;
+        font-size: clamp(9px, 2.5vw, 11px);
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .wa-box {
+        border: 1px solid #25d366;
+        border-radius: 24px;
+        padding: clamp(8px, 2vw, 10px) clamp(18px, 5vw, 30px);
+        background: rgba(37, 211, 102, 0.08);
+        display: inline-block;
+      }
+      .wa-label {
+        color: #25d366;
+        font-size: clamp(10px, 2.5vw, 11px);
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
+      .wa-number {
+        color: white;
+        font-family: "Fredoka One", cursive;
+        font-size: clamp(18px, 5.5vw, 22px);
+        letter-spacing: 1px;
+      }
+      .bottom-hours {
+        color: #555;
+        font-size: clamp(9px, 2.2vw, 10px);
+        margin-top: 8px;
+      }
+
+      /* ── Cube responsive scaling ── */
+      @media (max-width: 440px) {
+        .cube-lb {
+          width: 58px !important;
+          top: 68px !important;
+          left: 4px !important;
+        }
+        .cube-ls {
+          width: 36px !important;
+          top: 185px !important;
+          left: 18px !important;
+        }
+        .cube-lbt {
+          width: 70px !important;
+        }
+        .cube-lt {
+          width: 30px !important;
+          left: 34px !important;
+        }
+        .cube-rb {
+          width: 64px !important;
+          top: 56px !important;
+          right: 2px !important;
+        }
+        .cube-rm {
+          width: 52px !important;
+          top: 185px !important;
+          right: 4px !important;
+        }
+        .cube-rmp {
+          width: 46px !important;
+          top: 470px !important;
+        }
+        .cube-rbt {
+          width: 38px !important;
+        }
+        .cube-rg {
+          width: 30px !important;
+          top: 320px !important;
+        }
+        .blk-l {
+          width: 66px !important;
+          top: 305px !important;
+        }
+        .blk-r {
+          width: 66px !important;
+          top: 385px !important;
+        }
+      }
+      @media (max-width: 320px) {
+        .cube-lb,
+        .cube-rb,
+        .cube-ls,
+        .cube-rm,
+        .blk-l,
+        .blk-r {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="poster">
+      <div class="glow-bl"></div>
+      <div class="glow-br"></div>
+
+      <div class="stars">
+        <div class="star" style="width: 3px; height: 3px; top: 5%; left: 8%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 4%; left: 30%"></div>
+        <div class="star" style="width: 3px; height: 3px; top: 3%; left: 70%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 6%; left: 90%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 15%; left: 95%"></div>
+        <div class="star" style="width: 3px; height: 3px; top: 45%; left: 2%"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 60%; left: 97%"></div>
+        <div class="star" style="width: 3px; height: 3px; top: 75%; left: 3%"></div>
+        <div class="star" style="width: 4px; height: 4px; top: 20%; left: 5%; opacity: 0.9; background: #ffd700; border-radius: 50%"></div>
+      </div>
+
+      <!-- Cubes LEFT -->
+      <svg class="cube-svg cube-lb" style="top: 70px; left: 8px; width: 80px" viewBox="0 0 90 115">
+        <defs>
+          <linearGradient id="c1t" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00D4FF" />
+            <stop offset="100%" stop-color="#0077AA" />
+          </linearGradient>
+          <linearGradient id="c1l" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0099CC" />
+            <stop offset="100%" stop-color="#004488" />
+          </linearGradient>
+        </defs>
+        <polygon points="0,30 45,0 90,30 45,60" fill="url(#c1t)" stroke="#00AADD" stroke-width="0.8" />
+        <polygon points="0,30 0,85 45,115 45,60" fill="url(#c1l)" stroke="#007799" stroke-width="0.8" />
+        <polygon points="90,30 90,85 45,115 45,60" fill="#004466" stroke="#002244" stroke-width="0.8" />
+        <line x1="15" y1="20" x2="60" y2="50" stroke="#00DDFF" stroke-width="0.4" opacity="0.5" />
+        <line x1="30" y1="10" x2="75" y2="40" stroke="#00DDFF" stroke-width="0.4" opacity="0.5" />
+      </svg>
+      <svg class="cube-svg cube-ls" style="top: 200px; left: 30px; width: 48px; opacity: 0.85" viewBox="0 0 56 72">
+        <polygon points="0,18 28,0 56,18 28,36" fill="#A855F7" stroke="#9966FF" stroke-width="0.6" />
+        <polygon points="0,18 0,54 28,72 28,36" fill="#6D28D9" stroke="#4C1D95" stroke-width="0.6" />
+        <polygon points="56,18 56,54 28,72 28,36" fill="#3B0D99" stroke="#220055" stroke-width="0.6" />
+      </svg>
+      <svg class="cube-svg cube-lbt" style="bottom: 132px; left: 3px; width: 94px" viewBox="0 0 110 120">
+        <defs>
+          <linearGradient id="c2t" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FF6B2B" />
+            <stop offset="100%" stop-color="#CC3300" />
+          </linearGradient>
+          <linearGradient id="c2l" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#DD4400" />
+            <stop offset="100%" stop-color="#881100" />
+          </linearGradient>
+        </defs>
+        <polygon points="0,28 55,0 110,28 55,56" fill="url(#c2t)" stroke="#FF8844" stroke-width="0.8" />
+        <polygon points="0,28 0,82 55,110 55,56" fill="url(#c2l)" stroke="#CC5500" stroke-width="0.8" />
+        <polygon points="110,28 110,82 55,110 55,56" fill="#771100" stroke="#440000" stroke-width="0.8" />
+      </svg>
+      <svg class="cube-svg cube-lt" style="bottom: 218px; left: 44px; width: 38px; opacity: 0.75" viewBox="0 0 46 52">
+        <polygon points="0,13 23,0 46,13 23,26" fill="#10B981" stroke="#059669" stroke-width="0.6" />
+        <polygon points="0,13 0,39 23,52 23,26" fill="#065F46" stroke="#022C20" stroke-width="0.6" />
+        <polygon points="46,13 46,39 23,52 23,26" fill="#022C20" stroke="#011510" stroke-width="0.6" />
+      </svg>
+
+      <!-- Cubes RIGHT -->
+      <svg class="cube-svg cube-rb" style="top: 60px; right: 4px; width: 86px" viewBox="0 0 100 115">
+        <defs>
+          <linearGradient id="c3t" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FF6B2B" />
+            <stop offset="100%" stop-color="#CC3300" />
+          </linearGradient>
+          <linearGradient id="c3l" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#DD4400" />
+            <stop offset="100%" stop-color="#881100" />
+          </linearGradient>
+        </defs>
+        <polygon points="0,28 50,0 100,28 50,56" fill="url(#c3t)" stroke="#FF8844" stroke-width="0.8" />
+        <polygon points="0,28 0,82 50,110 50,56" fill="url(#c3l)" stroke="#CC5500" stroke-width="0.8" />
+        <polygon points="100,28 100,82 50,110 50,56" fill="#661100" stroke="#440000" stroke-width="0.8" />
+        <line x1="16" y1="18" x2="66" y2="47" stroke="#FFAA66" stroke-width="0.4" opacity="0.5" />
+        <line x1="32" y1="9" x2="82" y2="38" stroke="#FFAA66" stroke-width="0.4" opacity="0.5" />
+      </svg>
+      <svg class="cube-svg cube-rm" style="top: 198px; right: 8px; width: 70px; opacity: 0.85" viewBox="0 0 80 92">
+        <defs>
+          <linearGradient id="c4t" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00D4FF" />
+            <stop offset="100%" stop-color="#0077AA" />
+          </linearGradient>
+          <linearGradient id="c4l" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0099CC" />
+            <stop offset="100%" stop-color="#004488" />
+          </linearGradient>
+        </defs>
+        <polygon points="0,22 40,0 80,22 40,44" fill="url(#c4t)" stroke="#00CCEE" stroke-width="0.6" />
+        <polygon points="0,22 0,66 40,88 40,44" fill="url(#c4l)" stroke="#0088AA" stroke-width="0.6" />
+        <polygon points="80,22 80,66 40,88 40,44" fill="#002244" stroke="#001133" stroke-width="0.6" />
+      </svg>
+      <svg class="cube-svg cube-rmp" style="top: 495px; right: 3px; width: 60px; opacity: 0.8" viewBox="0 0 70 80">
+        <polygon points="0,20 35,0 70,20 35,40" fill="#A855F7" stroke="#9966FF" stroke-width="0.6" />
+        <polygon points="0,20 0,60 35,80 35,40" fill="#6D28D9" stroke="#4C1D95" stroke-width="0.6" />
+        <polygon points="70,20 70,60 35,80 35,40" fill="#3B0D99" stroke="#220055" stroke-width="0.6" />
+      </svg>
+      <svg class="cube-svg cube-rbt" style="bottom: 136px; right: 6px; width: 50px" viewBox="0 0 58 66">
+        <polygon points="0,16 29,0 58,16 29,32" fill="#10B981" stroke="#059669" stroke-width="0.6" />
+        <polygon points="0,16 0,50 29,66 29,32" fill="#065F46" stroke="#022C20" stroke-width="0.6" />
+        <polygon points="58,16 58,50 29,66 29,32" fill="#022C20" stroke="#011510" stroke-width="0.6" />
+      </svg>
+      <svg class="cube-svg cube-rg" style="top: 336px; right: 0px; width: 40px; opacity: 0.7" viewBox="0 0 46 52">
+        <polygon points="0,13 23,0 46,13 23,26" fill="#FFD700" stroke="#CC9900" stroke-width="0.6" />
+        <polygon points="0,13 0,39 23,52 23,26" fill="#996600" stroke="#553300" stroke-width="0.6" />
+        <polygon points="46,13 46,39 23,52 23,26" fill="#442200" stroke="#221100" stroke-width="0.6" />
+      </svg>
+
+      <!-- Scratch blocks LEFT -->
+      <svg class="scratch-blocks blk-l" style="top: 324px; left: 2px; width: 86px" viewBox="0 0 96 96" opacity="0.75">
+        <defs>
+          <linearGradient id="sb1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#4C97FF" />
+            <stop offset="100%" stop-color="#3D7FCC" />
+          </linearGradient>
+          <linearGradient id="sb2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#9966FF" />
+            <stop offset="100%" stop-color="#7744CC" />
+          </linearGradient>
+          <linearGradient id="sb3" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#FF8C1A" />
+            <stop offset="100%" stop-color="#CC6600" />
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="90" height="26" rx="5" fill="url(#sb1)" />
+        <rect x="8" y="-6" width="14" height="8" rx="3" fill="#4C97FF" />
+        <rect x="8" y="26" width="14" height="8" rx="3" fill="#4C97FF" />
+        <text x="45" y="17" text-anchor="middle" fill="white" font-size="8" font-family="monospace" font-weight="700">when 🏁 clicked</text>
+        <rect x="0" y="34" width="90" height="26" rx="5" fill="url(#sb2)" />
+        <rect x="8" y="28" width="14" height="8" rx="3" fill="#9966FF" />
+        <rect x="8" y="60" width="14" height="8" rx="3" fill="#9966FF" />
+        <text x="45" y="51" text-anchor="middle" fill="white" font-size="8" font-family="monospace" font-weight="700">move 10 steps</text>
+        <rect x="0" y="68" width="90" height="26" rx="5" fill="url(#sb3)" />
+        <rect x="8" y="62" width="14" height="8" rx="3" fill="#FF8C1A" />
+        <text x="45" y="85" text-anchor="middle" fill="white" font-size="8" font-family="monospace" font-weight="700">repeat 10</text>
+      </svg>
+
+      <!-- Scratch blocks RIGHT -->
+      <svg class="scratch-blocks blk-r" style="top: 410px; right: 2px; width: 86px" viewBox="0 0 96 64" opacity="0.75">
+        <defs>
+          <linearGradient id="sb4" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#4C97FF" />
+            <stop offset="100%" stop-color="#3D7FCC" />
+          </linearGradient>
+          <linearGradient id="sb5" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#9966FF" />
+            <stop offset="100%" stop-color="#7744CC" />
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="90" height="26" rx="5" fill="url(#sb4)" />
+        <rect x="8" y="-6" width="14" height="8" rx="3" fill="#4C97FF" />
+        <rect x="8" y="26" width="14" height="8" rx="3" fill="#4C97FF" />
+        <text x="45" y="17" text-anchor="middle" fill="white" font-size="8" font-family="monospace" font-weight="700">if &lt;touching?&gt;</text>
+        <rect x="0" y="34" width="90" height="26" rx="5" fill="url(#sb5)" />
+        <rect x="8" y="28" width="14" height="8" rx="3" fill="#9966FF" />
+        <text x="45" y="51" text-anchor="middle" fill="white" font-size="8" font-family="monospace" font-weight="700">play sound</text>
+      </svg>
+
+      <!-- ── CONTENT ── -->
+
+      <div class="top-badge"><span>✦ Coding for Kids ✦</span></div>
+
+      <div class="mascot-area">
+        <svg viewBox="0 0 120 165" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="60" cy="118" rx="36" ry="40" fill="#FF8C42" />
+          <ellipse cx="60" cy="74" rx="33" ry="30" fill="#FF8C42" />
+          <polygon points="32,52 22,30 44,48" fill="#FF8C42" />
+          <polygon points="88,52 98,30 76,48" fill="#FF8C42" />
+          <polygon points="34,50 27,35 43,48" fill="#FFB380" />
+          <polygon points="86,50 93,35 77,48" fill="#FFB380" />
+          <ellipse cx="48" cy="72" rx="8" ry="9" fill="white" />
+          <ellipse cx="72" cy="72" rx="8" ry="9" fill="white" />
+          <circle cx="50" cy="73" r="5" fill="#2D3047" />
+          <circle cx="74" cy="73" r="5" fill="#2D3047" />
+          <circle cx="52" cy="71" r="2" fill="white" />
+          <circle cx="76" cy="71" r="2" fill="white" />
+          <ellipse cx="60" cy="84" rx="5" ry="3.5" fill="#FFB6C1" />
+          <path d="M55,88 Q60,94 65,88" fill="none" stroke="#CC6644" stroke-width="1.5" stroke-linecap="round" />
+          <line x1="20" y1="80" x2="50" y2="84" stroke="#aaa" stroke-width="0.8" opacity="0.7" />
+          <line x1="20" y1="85" x2="50" y2="87" stroke="#aaa" stroke-width="0.8" opacity="0.7" />
+          <line x1="70" y1="84" x2="100" y2="80" stroke="#aaa" stroke-width="0.8" opacity="0.7" />
+          <line x1="70" y1="87" x2="100" y2="85" stroke="#aaa" stroke-width="0.8" opacity="0.7" />
+          <ellipse cx="60" cy="120" rx="22" ry="25" fill="#FFB380" />
+          <ellipse cx="28" cy="108" rx="11" ry="19" fill="#FF8C42" transform="rotate(-20,28,108)" />
+          <ellipse cx="92" cy="108" rx="11" ry="19" fill="#FF8C42" transform="rotate(20,92,108)" />
+          <ellipse cx="44" cy="150" rx="10" ry="15" fill="#FF8C42" transform="rotate(5,44,150)" />
+          <ellipse cx="76" cy="150" rx="10" ry="15" fill="#FF8C42" transform="rotate(-5,76,150)" />
+          <path d="M90,132 Q130,112 126,82 Q122,56 106,72" fill="none" stroke="#FF8C42" stroke-width="9" stroke-linecap="round" />
+        </svg>
+      </div>
+
+      <div class="title-block">
+        <div class="title-sub">Belajar Membuat</div>
+        <div class="title-game">GAME</div>
+        <div class="title-dengan">dengan pemrograman</div>
+        <div><span class="scratch-badge">SCRATCH 3</span></div>
+      </div>
+
+      <div class="age-badge">
+        <span>⭐ Untuk Anak Usia 7 – 12 Tahun ⭐</span>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="mode-row">
+        <div class="mode-pill online">
+          <div class="mode-title">💻 ONLINE</div>
+          <div class="mode-desc">Belajar dari rumah</div>
+        </div>
+        <div class="mode-amp">&amp;</div>
+        <div class="mode-pill onsite">
+          <div class="mode-title">🏫 ONSITE</div>
+          <div class="mode-desc">Tatap muka langsung</div>
+        </div>
+      </div>
+
+      <div class="divider-soft"></div>
+
+      <div class="learn-section">
+        <div class="learn-title">✦ Apa yang akan dipelajari? ✦</div>
+        <div class="learn-grid">
+          <div class="learn-item">
+            <div class="learn-dot" style="background: #4c97ff"></div>
+            <span>Logika pemrograman dasar</span>
+          </div>
+          <div class="learn-item">
+            <div class="learn-dot" style="background: #ff6680"></div>
+            <span>Logika kondisi &amp; loop</span>
+          </div>
+          <div class="learn-item">
+            <div class="learn-dot" style="background: #9966ff"></div>
+            <span>Membuat karakter &amp; animasi</span>
+          </div>
+          <div class="learn-item">
+            <div class="learn-dot" style="background: #59c059"></div>
+            <span>Suara &amp; efek visual</span>
+          </div>
+          <div class="learn-item">
+            <div class="learn-dot" style="background: #ff8c1a"></div>
+            <span>Desain game interaktif</span>
+          </div>
+          <div class="learn-item">
+            <div class="learn-dot" style="background: #ffd700"></div>
+            <span>Publish &amp; share game</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="price-card">
+        <div class="price-label">Investasi per Pertemuan</div>
+        <div class="price-normal">Rp 120.000</div>
+        <div class="price-special">Rp 85.000</div>
+        <div class="price-save">🎉 Hemat Rp 35.000!</div>
+      </div>
+
+      <div class="cta-wrap">
+        <a href="https://wa.me/6289530709114" class="cta-btn">🚀 DAFTAR SEKARANG!</a>
+      </div>
+
+      <div class="bottom-strip">
+        <div class="admin-title">✦ Admin &amp; Info Pendaftaran ✦</div>
+        <div class="wa-box">
+          <div class="wa-label">📱 WhatsApp Admin</div>
+          <div class="wa-number">0895 – 3070 – 9114</div>
+        </div>
+        <div class="bottom-hours">Senin – Sabtu &nbsp;•&nbsp; 08.00 – 20.00 WIB</div>
+      </div>
+    </div>
+  </body>
+</html>
